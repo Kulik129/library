@@ -1,0 +1,10 @@
+version: '3'
+services:
+  book-consumer:
+    image: postgres:13.3
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=google_books
+    ports:
+      - '5435:5432'
