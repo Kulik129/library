@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5435/google_books
+    username: root
+    password: 12345678
+  jpa:
+    hibernate:
+      ddl-auto: create
+  application:
+    name: google-books-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/
+
