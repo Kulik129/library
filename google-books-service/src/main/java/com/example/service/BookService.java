@@ -1,8 +1,8 @@
 package com.example.service;
 
 import com.example.dto.BookResponse;
-import com.example.models.BookEntity;
-import com.example.models.IndustryIdentifier;
+import com.example.entity.BookEntity;
+import com.example.entity.IndustryIdentifier;
 import com.example.repository.BookRepository;
 import com.example.repository.IndustryIdentifierRepository;
 import lombok.RequiredArgsConstructor;

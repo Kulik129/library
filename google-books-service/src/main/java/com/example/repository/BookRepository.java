@@ -1,7 +1,6 @@
 package com.example.repository;
 
-import com.example.models.BookEntity;
-import org.hibernate.query.Page;
+import com.example.entity.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
