@@ -1,0 +1,10 @@
+version: '3'
+services:
+  person-project:
+    image: postgres:13.3
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=persons
+    ports:
+      - '5444:5432'
