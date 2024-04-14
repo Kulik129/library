@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  discovery:
+    image: discovery
+    ports:
+      - "8761:8761"
+    networks:
+      - bridge
+
+  api-gateway:
+    image: api-gatway
+    ports:
+      - "8765:8765"
+    networks:
+      - bridge
+
+  issue:
+    image: issue
+    ports:
+      - "8190:8190"
+    networks:
+      - bridge
+
+  google-books-service:
+    image: google-books-service
+    ports:
+      - "8092:8092"
+    networks:
+      - bridge
+
+  person-service:
+    image: person-service
+    ports:
+      - "8082:8082"
+    networks:
+      - bridge
+
+networks:
+  bridge:
+    driver: bridge
