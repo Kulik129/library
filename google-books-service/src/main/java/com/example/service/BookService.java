@@ -76,8 +76,8 @@ public class BookService {
         return new PageImpl<>(collect, pageable, bookEntities.getTotalElements());
     }
 
-    public void deleteBookById(String id) {
-        bookRepository.deleteById(id);
+    public void deleteBookById(Long id) {
+        bookRepository.deleteByBookId(id);
     }
 
     public BookResponse updateBookDescription(String id, String updateDes) {
