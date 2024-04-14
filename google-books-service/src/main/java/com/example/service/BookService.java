@@ -25,6 +25,13 @@ public class BookService {
     private final IndustryIdentifierRepository identifierRepository;
     private final ModelMapper modelMapper;
 
+    public List<BookResponse> search(String title) {
+        return Optional.ofNullable(findBookByTitle(title))
+                .map(books -> books.isEmpty() ? Stream.of(findBookInGoogleBooks(title)) : books.stream())
+                .orElse(Stream.empty())
+                .collect(Collectors.toList());
+    }
+
     private BookResponse findBookInGoogleBooks(String search) {
         BookResponse response = service.getBookResponse(search);
         BookEntity bookEntity = modelMapper.map(response, BookEntity.class);
@@ -51,13 +58,6 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public List<BookResponse> search(String title) {
-        return Optional.ofNullable(findBookByTitle(title))
-                .map(books -> books.isEmpty() ? Stream.of(findBookInGoogleBooks(title)) : books.stream())
-                .orElse(Stream.empty())
-                .collect(Collectors.toList());
-    }
-
     public BookResponse getBookById(String id) {
         return Optional.of(bookRepository.findById(id))
                 .map(bookEntity -> {
@@ -74,5 +74,16 @@ public class BookService {
                 .collect(Collectors.toList());
 
         return new PageImpl<>(collect, pageable, bookEntities.getTotalElements());
+    }
+
+    public void deleteBookById(String id) {
+        bookRepository.deleteById(id);
+    }
+
+    public BookResponse updateBookDescription(String id, String updateDes) {
+        BookEntity book = bookRepository.findById(id);
+        book.setDescription(updateDes);
+        BookEntity save = bookRepository.save(book);
+        return modelMapper.map(save, BookResponse.class);
     }
 }
