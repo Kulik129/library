@@ -1,5 +1,6 @@
 package com.example.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -7,17 +8,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.UUID;
 
-/**
- * Запрос от клиента
- */
-@Builder
-@Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Request {
-    private String bookUuid;
-    private UUID readerUuid;
+@Data
+public class PersonResponse {
+    private Long id;
+    private UUID uuid;
+    private String personName;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
+    private Double rating;
+    private String bookId;
+
 }

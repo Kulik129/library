@@ -24,6 +24,6 @@ public class Response {
     private UUID uuid;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate issuedAt;
-    private UUID bookId;
+    private String bookId;
     private UUID readerId;
 }
