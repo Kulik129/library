@@ -29,7 +29,7 @@ public class BookEntity {
     @Embedded
     private Book.ListPrice listPrice;
     private String previewLink;
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<IndustryIdentifier> industryIdentifiers;
     private int pageCount;
 }
