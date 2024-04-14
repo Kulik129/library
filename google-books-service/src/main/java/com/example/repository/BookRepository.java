@@ -13,4 +13,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
     @Query("SELECT b FROM BookEntity b WHERE b.title ILIKE %:title%")
     List<BookEntity> findByBookTitle(String title);
 
+    void deleteById(String id);
 }
