@@ -41,5 +41,5 @@ public interface CrudService<T, E> {
      * @param id id объекта.
      * @return список объектов.
      */
-    List<T> deleteById(Long id);
+    void deleteById(Long id);
 }

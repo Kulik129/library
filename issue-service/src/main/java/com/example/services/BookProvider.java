@@ -1,22 +1,18 @@
 package com.example.services;
 
 import com.example.DTO.BookResponse;
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.EurekaClient;
-import com.netflix.discovery.shared.Application;
+import com.example.DTO.PersonResponse;
+import com.example.DTO.Request;
 import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalancerExchangeFilterFunction;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class BookProvider {
     private final WebClient webClient;
-    private final String BASE_URL_BOOK_SERVICE = "http://book-service/api/v1/book";
 
     public BookProvider(ReactorLoadBalancerExchangeFilterFunction loadBalancerExchangeFilterFunction) {
         webClient = WebClient.builder()
@@ -25,35 +21,45 @@ public class BookProvider {
     }
 
     /**
-     * Отправить Get запрос в book-service
-     * Get http:localhost:8080/api/v1/book/uuid
+     * Отправить Get запрос в google-books-service
      *
-     * @return получить книгу по UUID
+     * @return получить книгу по ID
      */
-    public BookResponse getBookByUuid(UUID uuid) {
+    public BookResponse getBookById(String id) {
         BookResponse response = webClient.get()
-                .uri(BASE_URL_BOOK_SERVICE + "/" + uuid)
+                .uri("http://google-books-service/api/v1/google-books/" + id)
                 .retrieve()
                 .bodyToMono(BookResponse.class)
                 .block();
         return response;
     }
 
-    public List<BookResponse> getAllBook() {
-        Flux<BookResponse> block = webClient.get()
-                .uri(BASE_URL_BOOK_SERVICE)
+    public PersonResponse getPersonByUuid(UUID uuid) {
+        PersonResponse response = webClient.get()
+                .uri("http://person-service/api/v1/person/" + uuid)
                 .retrieve()
-                .bodyToFlux(BookResponse.class);
-        return block.collectList().block();
+                .bodyToMono(PersonResponse.class)
+                .block();
+        return response;
     }
 
-//    private String getBookServiceIP() {
-//        Application application = eurekaClient.getApplication("BOOK-SERVICE");
-//        List<InstanceInfo> instances = application.getInstances();
+    public PersonResponse addBookPerson(Request request) {
+        PersonResponse response = webClient.post()
+                .uri("http://person-service/api/v1/person/add-book")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(PersonResponse.class)
+                .block();
+        return response;
+    }
+
 //
-//        int randomIndex = ThreadLocalRandom.current().nextInt(instances.size());
-//        InstanceInfo randomInstance = instances.get(randomIndex);
-//
-//        return randomInstance.getHomePageUrl();
+//    public List<BookResponse> getAllBook() {
+//        Flux<BookResponse> block = webClient.get()
+//                .uri("http://google-books-service/api/v1/google-books/")
+//                .retrieve()
+//                .bodyToFlux(BookResponse.class);
+//        return block.collectList().block();
 //    }
 }
