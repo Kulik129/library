@@ -39,10 +39,28 @@ public class BookApi {
     }
 
     @Operation(
-            summary = "Получить книгу по id",
+            summary = "Получить книгу по ID",
             description = "Вернется книга.")
     @GetMapping("/{id}")
     public ResponseEntity<BookResponse> getBookByID(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.getBookById(id));
+    }
+
+    @Operation(
+            summary = "Удалить книгу по ID.",
+            description = "Удалить книгу по ID который присвоен google books.")
+    @DeleteMapping("/bookId")
+    public ResponseEntity<BookResponse> deleteBook(@PathVariable String bookId) {
+        service.deleteBookById(bookId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Operation(
+            summary = "Обновить описание книги.",
+            description = "Обновить описание книги по ID который присвоен google books.")
+    @PutMapping("/{bookId}")
+    public ResponseEntity<BookResponse> updateDescription(@PathVariable String bookId, @RequestBody String description) {
+        BookResponse updateBookDescription = service.updateBookDescription(bookId, description);
+        return ResponseEntity.status(HttpStatus.OK).body(updateBookDescription);
     }
 }
