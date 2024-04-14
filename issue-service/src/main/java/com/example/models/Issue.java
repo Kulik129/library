@@ -21,7 +21,7 @@ public class Issue {
     @Column(name = "issued_at")
     private LocalDate issuedAt;
     @Column(name = "book_id")
-    private UUID bookId;
+    private String bookId;
     @Column(name = "reader_id")
     private UUID readerId;
 }
