@@ -48,9 +48,9 @@ public class BookApi {
 
     @Operation(
             summary = "Удалить книгу по ID.",
-            description = "Удалить книгу по ID который присвоен google books.")
-    @DeleteMapping("/bookId")
-    public ResponseEntity<BookResponse> deleteBook(@PathVariable String bookId) {
+            description = "Удалить книгу по ID который присвоен в БД.")
+    @DeleteMapping("/{bookId}")
+    public ResponseEntity<BookResponse> deleteBook(@PathVariable Long bookId) {
         service.deleteBookById(bookId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
