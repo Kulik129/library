@@ -1,5 +1,6 @@
 package com.example.api;
 
+import com.example.dto.CreateIssueBookRequest;
 import com.example.dto.Request;
 import com.example.dto.Response;
 import com.example.service.PersonService;
@@ -31,5 +32,14 @@ public class PersonController {
     @PostMapping
     public ResponseEntity<Response> create(@RequestBody Request request) {
         return ResponseEntity.status(HttpStatus.OK).body(personService.create(request));
+    }
+
+    @Operation(
+            summary = "Добавить книгу пользователю",
+            description = "Возвращает объект пользователя")
+    @PostMapping("/add-book")
+    public ResponseEntity<Response> createIssue(@RequestBody CreateIssueBookRequest request) {
+        personService.addIssueBook(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

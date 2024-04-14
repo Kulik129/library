@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.CreateIssueBookRequest;
 import com.example.dto.Request;
 import com.example.dto.Response;
 import com.example.entity.Person;
@@ -33,5 +34,12 @@ public class PersonServiceImpl implements PersonService{
         return Optional.of(person)
                 .map(person1 -> modelMapper.map(person1, Response.class))
                 .orElseThrow(()-> new RuntimeException("Пользователь не найден"));
+    }
+
+    public Response addIssueBook(CreateIssueBookRequest request) {
+        Person person = personRepository.findByUuid(request.getReaderUuid());
+        person.setBookId(request.getBookUuid());
+        personRepository.save(person);
+        return modelMapper.map(person, Response.class);
     }
 }

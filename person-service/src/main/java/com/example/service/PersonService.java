@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.CreateIssueBookRequest;
 import com.example.dto.Request;
 import com.example.dto.Response;
 
@@ -10,4 +11,5 @@ public interface PersonService {
     Response create(Request request);
 
     Response getPersonByUuid(UUID uuid);
+    Response addIssueBook(CreateIssueBookRequest request);
 }
