@@ -1,14 +1,18 @@
+server:
+  port: 8765
+
 spring:
   application:
-    name: api
+    name: api-gateway
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
-          lowerCaseServiceId: true
+
+eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
-server:
-  port: 8765
+      defaultZone: http://192.168.0.99:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
