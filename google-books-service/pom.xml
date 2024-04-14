@@ -61,4 +61,18 @@
             <version>3.2.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <mainClass>com.example.GoogleBooks</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
