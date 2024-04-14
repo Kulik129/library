@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,17 +36,10 @@ public class IssueController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 
-    @Operation(summary = "Получить книгу по UUID",
-    description = "Объект книга из сервиса book-service")
-    @GetMapping("/{uuid}")
-    public ResponseEntity<BookResponse> getBookByUuid(@PathVariable UUID uuid) {
-        return ResponseEntity.status(HttpStatus.OK).body(provider.getBookByUuid(uuid));
-    }
-
-    @Operation(summary = "Получить все книги",
-            description = "Лист книг из сервиса book-service")
-    @GetMapping("/books")
-    public ResponseEntity<List<BookResponse>> getAllBook() {
-        return ResponseEntity.status(HttpStatus.OK).body(provider.getAllBook());
+    @Operation(summary = "Получить книгу по ID",
+            description = "Объект книга из сервиса google-books-service")
+    @GetMapping("/{id}")
+    public ResponseEntity<BookResponse> getBookByUuid(@PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.OK).body(provider.getBookById(id));
     }
 }
