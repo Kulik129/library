@@ -53,13 +53,4 @@ public class BookProvider {
                 .block();
         return response;
     }
-
-//
-//    public List<BookResponse> getAllBook() {
-//        Flux<BookResponse> block = webClient.get()
-//                .uri("http://google-books-service/api/v1/google-books/")
-//                .retrieve()
-//                .bodyToFlux(BookResponse.class);
-//        return block.collectList().block();
-//    }
 }

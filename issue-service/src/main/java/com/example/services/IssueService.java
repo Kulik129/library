@@ -40,27 +40,22 @@ public class IssueService implements CrudService<Response, Request> {
     @Transactional
     @Override
     public Response create(Request request) {
-        // todo:Выдана книга или нет?
         checkIssueBook(request.getBookUuid());
-
-        // todo: Есть такая книга в БД?
         findByBookByUuid(request.getBookUuid());
 
-        // todo: Есть такой пользователь в БД?
         getPerson(request.getReaderUuid());
 
         provider.addBookPerson(request);
-
         Issue createIssue = createIssue(request);
         return modelMapper.map(createIssue, Response.class);
     }
 
     private PersonResponse getPerson(UUID uuid) {
         PersonResponse person = provider.getPersonByUuid(uuid);
-        if (person == null){
+        if (person == null) {
             throw new RuntimeException("Пользователь не найден");
         }
-        return  person;
+        return person;
     }
 
     private String checkIssueBook(String uuid) {
@@ -100,7 +95,7 @@ public class IssueService implements CrudService<Response, Request> {
                     Issue save = issueRepository.save(issue);
                     return modelMapper.map(save, Response.class);
                 })
-                .orElseThrow(()-> new RuntimeException("Выдача не найдена"));
+                .orElseThrow(() -> new RuntimeException("Выдача не найдена"));
     }
 
     @Override
