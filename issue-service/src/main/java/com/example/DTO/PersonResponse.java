@@ -24,5 +24,4 @@ public class PersonResponse {
     private Date dateOfBirth;
     private Double rating;
     private String bookId;
-
 }
