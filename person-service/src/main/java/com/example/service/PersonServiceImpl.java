@@ -9,8 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +43,12 @@ public class PersonServiceImpl implements PersonService{
         person.setBookId(request.getBookUuid());
         personRepository.save(person);
         return modelMapper.map(person, Response.class);
+    }
+
+    @Override
+    public List<Response> allPerson() {
+        return personRepository.findAll().stream()
+                .map(person -> modelMapper.map(person, Response.class))
+                .collect(Collectors.toList());
     }
 }

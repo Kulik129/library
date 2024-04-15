@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -41,5 +42,13 @@ public class PersonController {
     public ResponseEntity<Response> createIssue(@RequestBody CreateIssueBookRequest request) {
         personService.addIssueBook(request);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Operation(
+            summary = "Получить всех пользователей",
+            description = "Возвращает объект пользователей")
+    @GetMapping
+    public ResponseEntity<List<Response>> gelAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(personService.allPerson());
     }
 }
