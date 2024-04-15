@@ -33,6 +33,7 @@ public class IssueController {
             description = "Список всех выданных книг")
     @PostMapping()
     public ResponseEntity<Response> create(@RequestBody Request request) {
+        System.out.println(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 
